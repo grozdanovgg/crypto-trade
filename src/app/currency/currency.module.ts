@@ -2,7 +2,7 @@ import { PriceCalculatorPipe } from './../pipes/price-calculator.pipe';
 import { DirectivesExportModule } from './../directives/directives-export.module';
 import { CurrencyTransactionsService } from './../services/currency-transactions.service';
 import { CurrencyDataFormatterPipe } from './../pipes/currency-data-formatter.pipe';
-import { CurrencyChartComponent } from './currency-chart/currency-chart.component';
+import { CurrencyChartComponent } from './currency-details/currency-chart/currency-chart.component';
 import { ChartModule } from 'angular2-highcharts';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 import * as highcharts from 'highcharts/highstock';

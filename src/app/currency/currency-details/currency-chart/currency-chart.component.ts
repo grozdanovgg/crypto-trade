@@ -1,5 +1,6 @@
-import { ChartOptions } from './../../models/chart-options-mondel';
+import { ChartOptions } from './../../../models/chart-options-mondel';
 import { Component, Input, OnChanges } from '@angular/core';
+import { chartConfig } from '../../../config/chart-config';
 
 @Component({
   selector: 'app-currency-chart',
@@ -15,15 +16,6 @@ export class CurrencyChartComponent implements OnChanges {
   currancyOHLCData: number[][];
   ngOnChanges() {
     // console.log(this.currancyOHLCData);
-    this.options = {
-      title: { text: `${this.currencyName} stock price` },
-      series: [{
-        name: this.currencyName,
-        data: this.currancyOHLCData,
-        tooltip: {
-          valueDecimals: 6
-        }
-      }]
-    };
+    this.options = chartConfig;
   }
 }

@@ -51,39 +51,6 @@ export class CurrencyDetailsComponent implements OnInit {
         });
     });
   }
-
-  isLogged() {
-    return this.userAuthService.isLogged();
-  }
-
-  private updateUser() {
-    this.userService.getUserDetails()
-      .map((res) => res.json())
-      .subscribe((response) => {
-        this.loggedUser = response.user;
-        this.currencyQuantityPurchased = this.loggedUser.currencies[this.currencyDetails.symbol].quantity;
-      });
-  }
-
-  isBuyAffordable(value: number) {
-    this.affordableBuy = this.loggedUser.balance >=
-      value * this.currencyDetails.priceConversions['USD'];
-  }
-
-  isSellAfordable(value: number) {
-    if (!this.loggedUser.currencies[this.currencyDetails.symbol]) {
-      this.affordableSell = false;
-      return;
-    }
-
-    this.affordableSell = this.loggedUser.currencies[this.currencyDetails.symbol].quantity >=
-      value;
-  }
-
-  getUserBalance() {
-    return this.loggedUser.balance;
-  }
-
   private loadCurrencyDetails() {
     this.currencyDetailsProcessor.getFullCurrencyDetails(this.currencyId)
       .subscribe((result) => {
@@ -105,7 +72,33 @@ export class CurrencyDetailsComponent implements OnInit {
           });
       });
   }
+  isLogged() {
+    return this.userAuthService.isLogged();
+  }
+  private updateUser() {
+    this.userService.getUserDetails()
+      .map((res) => res.json())
+      .subscribe((response) => {
+        this.loggedUser = response.user;
+        this.currencyQuantityPurchased = this.loggedUser.currencies[this.currencyDetails.symbol].quantity;
+      });
+  }
+  isBuyAffordable(value: number) {
+    this.affordableBuy = this.loggedUser.balance >=
+      value * this.currencyDetails.priceConversions['USD'];
+  }
+  isSellAfordable(value: number) {
+    if (!this.loggedUser.currencies[this.currencyDetails.symbol]) {
+      this.affordableSell = false;
+      return;
+    }
 
+    this.affordableSell = this.loggedUser.currencies[this.currencyDetails.symbol].quantity >=
+      value;
+  }
+  getUserBalance() {
+    return this.loggedUser.balance;
+  }
   onBuy() {
     this.currencyTransactionsService.buyCurrency(this.currencyId, this.currencyDetails.symbol,
       this.currencyDetails.priceConversions['USD'], this.buyQuantity)
@@ -118,7 +111,6 @@ export class CurrencyDetailsComponent implements OnInit {
         this.affordableBuy = false;
       });
   }
-
   onSell() {
     this.currencyTransactionsService.sellCurrency(this.currencyId, this.currencyDetails.symbol,
       this.currencyDetails.priceConversions['USD'], this.sellQuantity)
