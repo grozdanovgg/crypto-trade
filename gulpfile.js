@@ -19,4 +19,5 @@ gulp.task('server', shell.task(['nodemon server/app.js']));
 
 // gulp.task('default', ['clean', 'build', 'server']);
 gulp.task('run', gulp.parallel('build', 'server'));
+
 gulp.task('default', gulp.series('clean', 'run'));
