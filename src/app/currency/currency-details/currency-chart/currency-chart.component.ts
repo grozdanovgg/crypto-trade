@@ -15,7 +15,17 @@ export class CurrencyChartComponent implements OnChanges {
   @Input()
   currancyOHLCData: number[][];
   ngOnChanges() {
-    // console.log(this.currancyOHLCData);
-    this.options = chartConfig;
+    console.log(this.currancyOHLCData);
+    console.log(chartConfig);
+    this.options = {
+      title: { text: `${this.currencyName} stock price` },
+      series: [{
+        name: this.currencyName,
+        data: this.currancyOHLCData,
+        tooltip: {
+          valueDecimals: chartConfig.valueDecimals
+        }
+      }]
+    };
   }
 }

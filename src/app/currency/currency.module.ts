@@ -46,9 +46,9 @@ export function highchartsFactory() {
     provide: HighchartsStatic,
     useFactory: highchartsFactory
   },
-  CurrencyProcessorService,
-  CurrencyDetailsFactoryService,
-  CurrencyTransactionsService
+    CurrencyProcessorService,
+    CurrencyDetailsFactoryService,
+    CurrencyTransactionsService
   ]
 })
 export class CurrencyModule { }
