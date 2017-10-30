@@ -7,7 +7,6 @@ import { Directive } from '@angular/core';
   selector: '[routerLink]',
 })
 export class RouterLinkDirective {
-  
   // tslint:disable-next-line:no-input-rename
   @Input('routerLink') linkParams: any;
   navigatedTo: any = null;

@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 export class UserAuthServiceMockService {
 
   private user: User = new User();
-  
+
   constructor() { }
 
   getLoggedUser(): string {
