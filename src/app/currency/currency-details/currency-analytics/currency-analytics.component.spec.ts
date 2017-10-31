@@ -8,9 +8,9 @@ describe('CurrencyAnalyticsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CurrencyAnalyticsComponent ]
+      declarations: [CurrencyAnalyticsComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
