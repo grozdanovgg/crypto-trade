@@ -6,3 +6,18 @@
     </p>
   </div>
 </div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col" *ngFor="let indicator of techIndicatorsArray"> {{this.indicator}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of techIndicators.EMA; let i = index">
+      <td *ngFor="let indicatorName of techIndicatorsArray">
+        {{techIndicators[indicatorName][i]}}
+      </td>
+    </tr>
+  </tbody>
+</table>

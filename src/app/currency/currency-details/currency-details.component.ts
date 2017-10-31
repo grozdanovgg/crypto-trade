@@ -9,6 +9,7 @@ import { CurrencyProcessorService } from './../../services/currency-processor.se
 import { CurrencyProviderService } from './../../services/currency-provider.service';
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { OCLHRawDdata } from '../../models/OCLHdata';
 
 @Component({
   selector: 'app-currency-details',
@@ -21,6 +22,7 @@ export class CurrencyDetailsComponent implements OnInit {
   currencyDetails: CurrencyDetails;
   currencyQuantityPurchased: number;
   currencyData: number[][];
+  currancyOHLCData: OCLHRawDdata[];
   loading = true;
   affordableBuy: boolean;
   affordableSell: boolean;
@@ -57,9 +59,10 @@ export class CurrencyDetailsComponent implements OnInit {
         this.currencyDetails = result;
         this.currencyProviderService.getCoinIOHLCInformation(this.currencyDetails.symbol)
           .map((res) => res.json())
-          .map((res) => Object.values(res.result.Data))
+          .map((res) => res.result.Data.filter(x => x.close > 0))
+          .do((res) => this.currancyOHLCData = res)
+          .map((res) => Object.values(res))
           .map((res) => res.map(x => [x.time * 1000, x.close]))
-          .map((res) => res.filter(x => x[1] > 0))
           .subscribe((response) => {
             this.loading = false;
             this.currencyData = (response);

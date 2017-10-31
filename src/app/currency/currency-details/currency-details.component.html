@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container-fluid">
 
 
     <div *ngIf="this.currencyDetails" class="currency-details-common mat-typography row">
-        <div class="col-md-4">
+        <div class="col-md-2">
             <div class="currency-item">
                 <div class="card-shadow">
                     <h1>
@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="shadow col-md-8">
+        <div class="shadow col-md-10">
             <div class="row">
                 <div *ngIf="isLogged()" class="col-md-12 well">
                     <div class="col-md-6 col-sm-12">
@@ -66,8 +66,8 @@
             <div class="row currency-chart shadow">
                 <app-currency-chart class="col-md-12" *ngIf="!loading" [currancyOHLCData]="currencyData" [currencyName]="currencyDetails?.symbol"></app-currency-chart>
             </div>
-            <div class="row currency-analytics">
-                <app-currency-analytics class="col-md-12" *ngIf="!loading" [currancyOHLCData]="currencyData"></app-currency-analytics>
+            <div class="row shadow currency-analytics">
+                <app-currency-analytics class="col-md-12" *ngIf="!loading" [currancyOHLCData]="currancyOHLCData"></app-currency-analytics>
             </div>
         </div>
     </div>
