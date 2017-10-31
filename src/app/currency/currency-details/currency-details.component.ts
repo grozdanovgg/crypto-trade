@@ -35,9 +35,9 @@ export class CurrencyDetailsComponent implements OnInit {
     public toastr: ToastsManager,
     public toastrService: ToastrService,
     private vRef: ViewContainerRef,
-    private userAuthService: UserAuthService) { this.toastr.setRootViewContainerRef(this.vRef); }
-
-
+    private userAuthService: UserAuthService) {
+    this.toastr.setRootViewContainerRef(this.vRef);
+  }
 
   ngOnInit() {
     this.detailsRoute.params.subscribe((params) => {
@@ -65,9 +65,10 @@ export class CurrencyDetailsComponent implements OnInit {
             this.currencyData = (response);
             if (!this.loggedUser) {
               this.currencyQuantityPurchased = 0;
-            } else if (this.loggedUser.currencies[this.currencyDetails.symbol]) {
-              this.currencyQuantityPurchased = this.loggedUser.currencies[this.currencyDetails.symbol].quantity;
+            } else if (!this.loggedUser.currencies[this.currencyDetails.symbol]) {
+              return 0;
             }
+            this.currencyQuantityPurchased = this.loggedUser.currencies[this.currencyDetails.symbol].quantity;
           });
       });
   }

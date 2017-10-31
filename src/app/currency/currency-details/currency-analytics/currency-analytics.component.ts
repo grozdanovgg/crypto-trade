@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-currency-analytics',
@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./currency-analytics.component.css']
 })
 export class CurrencyAnalyticsComponent implements OnInit {
-
+  @Input()
+  currancyOHLCData: number[][];
   constructor() { }
 
   ngOnInit() {
+    console.log(this.currancyOHLCData);
   }
 
 }
