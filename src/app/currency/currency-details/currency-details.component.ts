@@ -67,7 +67,7 @@ export class CurrencyDetailsComponent implements OnInit {
             this.loading = false;
             this.currencyData = (response);
             if (!this.loggedUser) {
-              this.currencyQuantityPurchased = 0;
+              return this.currencyQuantityPurchased = 0;
             } else if (!this.loggedUser.currencies[this.currencyDetails.symbol]) {
               return 0;
             }
