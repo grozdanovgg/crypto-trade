@@ -1,29 +1,32 @@
-<nav id="header" class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="brand-button navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <i class="material-icons">menu</i>
-      </button>
-      <a appActiveHover routerLink="/" class="navbar-brand">Crypto-Trade</a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li appActiveHover><a id="currencies" routerLink="/currency/all">Currencies</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li appActiveHover *ngIf="isUserLogged" class="dropdown">
-          <a id="userBtn" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, {{ loggedUserUsername | uppercase }} <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li id="profileBtn" appActiveHover><a [routerLink]="['/profile']">Profile</a></li>
-            <li id="logoutBtn" appActiveHover><a [routerLink]="['/logout']">Logout</a></li>
-          </ul>
-        </li>
-        <li id="registerBtn" appActiveHover *ngIf="!isUserLogged"><a [routerLink]="['/register']">Register</a></li>
-        <li id="loginBtn" appActiveHover *ngIf="!isUserLogged"><a [routerLink]="['/login']">Login</a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="/">Crypto Trade</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active" appActiveHover>
+        <a class="nav-link" routerLink="/currency/all">Currencies</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav navbar-right">
+      <li class="nav-item dropdown">
+        <a appActiveHover id="userBtn" *ngIf="isUserLogged" class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdown" role="button"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Hello, {{ loggedUserUsername | uppercase }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a appActiveHover id="profileBtn" class="dropdown-item" routerLink="/profile">Profile</a>
+          <a appActiveHover id="logoutBtn" class="dropdown-item" routerLink="/logout">Logout</a>
+        </div>
+      </li>
+      <li appActiveHover d="registerBtn" *ngIf="!isUserLogged" class="nav-item">
+        <a id="registerBtn" class="nav-link disabled" routerLink="/register">Register</a>
+      </li>
+      <li appActiveHover id="loginBtn" *ngIf="!isUserLogged" class="nav-item">
+        <a id="registerBtn" class="nav-link disabled" routerLink="/login">Login</a>
+      </li>
+    </ul>
+  </div>
 </nav>

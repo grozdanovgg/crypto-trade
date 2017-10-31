@@ -1,9 +1,10 @@
-<div class="row section-1">
+<div class="section-1">
     <p class="mat-display-4">Welcome to Crypto Trade!</p>
 </div>
 <div class="section-2">
     <p class="mat-display-3">
-        <span class="text-custom-color">Network</span> Where Active Traders Exchange Ideas to <span class="text-custom-color">Maximize Profit</span>
+        <span class="text-custom-color">Network</span> Where Active Traders Exchange Ideas to
+        <span class="text-custom-color">Maximize Profit</span>
     </p>
 </div>
 <div class="section-3 bottom-padding-2">
@@ -28,7 +29,9 @@
         <div class="card shadow" *ngFor="let item of bestCurrencies">
             <h4>{{item.name}}</h4>
             <!-- <img src={{item.ImageUrl}} alt="Logo"> -->
-            <a routerLink="/currency/{{item.id}}"><img id={{item.name}} src={{item.ImageUrl}} alt="Logo"></a>
+            <a routerLink="/currency/{{item.id}}">
+                <img id={{item.name}} src={{item.ImageUrl}} alt="Logo">
+            </a>
         </div>
     </div>
 </div>

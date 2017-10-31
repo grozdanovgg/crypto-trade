@@ -31,7 +31,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CurrencyListingComponent } from './currency/currency-listing/currency-listing.component';
 import { CurrencyDetailsComponent } from './currency/currency-details/currency-details.component';
 import { CurrencyComponent } from './currency/currency.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -55,7 +54,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       { path: '', redirectTo: '/', pathMatch: 'full' },
     ]),
     ToastModule.forRoot(),
-    NgbModule.forRoot()
   ],
   providers: [
     CookieService,
