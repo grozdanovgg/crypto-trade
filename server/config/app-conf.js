@@ -1,6 +1,5 @@
 module.exports = () => {
     const config = require('./config');
-
     const app = require('./express-conf')();
     const express = require('express');
     const hashGenerator = require('../common/hash-generator');

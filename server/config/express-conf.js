@@ -1,13 +1,13 @@
 /* use strict */
 const path = require('path');
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const minify = require('express-minify');
-
+const secure = require('express-force-https');
 module.exports = () => {
   const app = express();
   app.use(express.static(path.join(__dirname, '../../dist/')));
+  app.use(secure);
 
   app.use(minify({
     css_match: /css/,
