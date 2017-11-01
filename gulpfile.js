@@ -14,10 +14,10 @@ gulp.task('clean', () => {
     return del('dist');
 
 });
-gulp.task('build', shell.task(['ng build --watch']));
+gulp.task('buildWatch', shell.task(['ng build --watch']));
 gulp.task('server', shell.task(['nodemon server/app.js']));
 
-// gulp.task('default', ['clean', 'build', 'server']);
-gulp.task('run', gulp.parallel('build', 'server'));
+// gulp.task('default', ['clean', 'buildWatch', 'server']);
+gulp.task('run', gulp.parallel('buildWatch', 'server'));
 
 gulp.task('default', gulp.series('clean', 'run'));
