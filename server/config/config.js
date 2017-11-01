@@ -3,7 +3,7 @@ const rootPath = path.normalize(__dirname + '/..');
 
 const env = process.env.NODE_ENV || 'dev';
 const envPort = process.env.PORT;
-const envConnString = process.env.MONGO;
+const envConnString = process.env.MONGODB_URI;
 const envDbSecret = process.env.SECRET;
 
 const config = {
