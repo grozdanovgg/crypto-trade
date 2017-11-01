@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 export class HttpRequesterServiceMockService {
 
   private paths: {} = {
-    'http://localhost:3000/currency/historyPrice': {result: {Data: new Array<Array<number>>()}}
+    'https://localhost:3000/currency/historyPrice': {result: {Data: new Array<Array<number>>()}}
   };
 
   constructor() { }

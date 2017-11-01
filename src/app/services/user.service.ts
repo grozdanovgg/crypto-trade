@@ -10,7 +10,7 @@ import { Response } from '@angular/http';
 
 @Injectable()
 export class UserService {
-  private serverBaseUrl = 'http://localhost:3000';
+  private serverBaseUrl = 'https://localhost:3000';
   private headersObj: {} = { 'Content-Type': 'application/json' };
   private registerUserUrl = this.serverBaseUrl + '/api/auth/register';
   private loginUserUrl = this.serverBaseUrl + '/api/auth/login';

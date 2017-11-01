@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 export class CurrencyTransactionsService {
 
   // private userCurrencies: Array<UserCurrency>;
-  private serverBaseUrl = 'http://localhost:3000';
+  private serverBaseUrl = 'https://localhost:3000';
   private headersObj: {} = { 'Content-Type': 'application/json' };
   private buyUrl = this.serverBaseUrl + '/user/buy';
   private sellUrl = this.serverBaseUrl + '/user/sell';

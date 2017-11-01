@@ -8,10 +8,10 @@ import { Response } from '@angular/http';
 @Injectable()
 export class CurrencyProviderService {
 
-  private currencyListUrl = 'http://localhost:3000/currency/listAll';
-  private currencyDetailsUrl = 'http://localhost:3000/currency/getDetailsById';
-  private currencyPrices = 'http://localhost:3000/currency/priceConversions';
-  private currencyPricesHistoday = 'http://localhost:3000/currency/historyPrice';
+  private currencyListUrl = 'https://localhost:3000/currency/listAll';
+  private currencyDetailsUrl = 'https://localhost:3000/currency/getDetailsById';
+  private currencyPrices = 'https://localhost:3000/currency/priceConversions';
+  private currencyPricesHistoday = 'https://localhost:3000/currency/historyPrice';
 
   private headersObj: {} = {
     'Content-Type': 'application/json',

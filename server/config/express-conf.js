@@ -19,7 +19,7 @@ module.exports = () => {
   }));
 
   app.use(function (req, res, next) {
-    var allowedOrigins = ['http://localhost:4200', 'http://localhost:49154'];
+    var allowedOrigins = ['https://localhost:4200', 'https://localhost:49154'];
     var origin = req.headers.origin;
     if (allowedOrigins.indexOf(origin) > -1) {
       res.setHeader('Access-Control-Allow-Origin', origin);
