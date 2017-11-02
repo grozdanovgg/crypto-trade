@@ -10,63 +10,62 @@ import { Response } from '@angular/http';
 
 @Injectable()
 export class UserService {
-  private serverBaseUrl = 'http://localhost:3000';
-  private headersObj: {} = { 'Content-Type': 'application/json' };
-  private registerUserUrl = this.serverBaseUrl + '/api/auth/register';
-  private loginUserUrl = this.serverBaseUrl + '/api/auth/login';
-  private logoutUserUrl = this.serverBaseUrl + '/api/auth/logout';
-  private profileUrl = this.serverBaseUrl + '/user/profile';
-  private updateUserUrl = this.serverBaseUrl + '/user/update';
+	private headersObj: {} = { 'Content-Type': 'application/json' };
+	private registerUserUrl = '/api/auth/register';
+	private loginUserUrl = '/api/auth/login';
+	private logoutUserUrl = '/api/auth/logout';
+	private profileUrl = '/user/profile';
+	private updateUserUrl = '/user/update';
 
-  private userCurrenciesUrl = this.serverBaseUrl + '/user/currencies';
+	private userCurrenciesUrl = '/user/currencies';
 
-  constructor(
-    private httpRequesterService: HttpRequesterService,
-    private httpRequestOptionsFactory: HttpRequesterOptionsFactoryService,
-    private userAuthService: UserAuthService
-  ) { }
+	constructor(
+		private httpRequesterService: HttpRequesterService,
+		private httpRequestOptionsFactory: HttpRequesterOptionsFactoryService,
+		private userAuthService: UserAuthService
+	) { }
 
-  registerUser(user: User): Observable<Response> {
-    const httpRequestOptions = this.httpRequestOptionsFactory
-      .createRequestOptions(this.registerUserUrl, user, this.headersObj);
+	registerUser(user: User): Observable<Response> {
+		const httpRequestOptions = this.httpRequestOptionsFactory
+			.createRequestOptions(this.registerUserUrl, user, this.headersObj);
 
-    return this.httpRequesterService.post(httpRequestOptions);
-  }
+		return this.httpRequesterService.post(httpRequestOptions);
+	}
 
-  loginUser(user: User): Observable<Response> {
-    const httpsRequestHeaders = this.httpRequestOptionsFactory
-      .createRequestOptions(this.loginUserUrl, user, this.headersObj);
+	loginUser(user: User): Observable<Response> {
+		const httpsRequestHeaders = this.httpRequestOptionsFactory
+			.createRequestOptions(this.loginUserUrl, user, this.headersObj);
 
-    return this.httpRequesterService.post(httpsRequestHeaders);
-  }
+		return this.httpRequesterService.post(httpsRequestHeaders);
+	}
 
-  logoutUser(): Observable<Response> {
-    const httpsRequestHeaders = this.httpRequestOptionsFactory
-      .createRequestOptions(this.logoutUserUrl);
+	logoutUser(): Observable<Response> {
+		const httpsRequestHeaders = this.httpRequestOptionsFactory
+			.createRequestOptions(this.logoutUserUrl);
 
-    return this.httpRequesterService.get(httpsRequestHeaders);
-  }
+		return this.httpRequesterService.get(httpsRequestHeaders);
+	}
 
-  getUserCurrencies(): Observable<Response> {
-    const currentUser = this.userAuthService.getLoggedUser();
+	getUserCurrencies(): Observable<Response> {
+		const currentUser = this.userAuthService.getLoggedUser();
 
-    const httpRequestHeaders = this.httpRequestOptionsFactory
-      .createRequestOptions(this.userCurrenciesUrl, { username: currentUser }, this.headersObj);
+		const httpRequestHeaders = this.httpRequestOptionsFactory
+			.createRequestOptions(this.userCurrenciesUrl, { username: currentUser }, this.headersObj);
 
-    return this.httpRequesterService.post(httpRequestHeaders);
-  }
+		return this.httpRequesterService.post(httpRequestHeaders);
+	}
 
-  getUserDetails(): Observable<Response> {
-    const httpsRequestHeaders = this.httpRequestOptionsFactory
-      .createRequestOptions(this.profileUrl, { user: this.userAuthService.getLoggedUser() }, this.headersObj);
+	getUserDetails(): Observable<Response> {
+		const httpsRequestHeaders = this.httpRequestOptionsFactory
+			.createRequestOptions(this.profileUrl, { user: this.userAuthService.getLoggedUser() }, this.headersObj);
 
-    return this.httpRequesterService.post(httpsRequestHeaders);
-  }
+		return this.httpRequesterService.post(httpsRequestHeaders);
+	}
 
-  updateUserDetails(user: User): Observable<Response> {
-    const httpsRequestHeaders = this.httpRequestOptionsFactory
-      .createRequestOptions(this.updateUserUrl, user, this.headersObj);
+	updateUserDetails(user: User): Observable<Response> {
+		const httpsRequestHeaders = this.httpRequestOptionsFactory
+			.createRequestOptions(this.updateUserUrl, user, this.headersObj);
 
-    return this.httpRequesterService.post(httpsRequestHeaders);
-  }
+		return this.httpRequesterService.post(httpsRequestHeaders);
+	}
 }
