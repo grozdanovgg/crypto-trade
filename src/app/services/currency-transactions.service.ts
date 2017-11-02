@@ -7,54 +7,53 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class CurrencyTransactionsService {
 
-  // private userCurrencies: Array<UserCurrency>;
-  private serverBaseUrl = 'http://localhost:3000';
-  private headersObj: {} = { 'Content-Type': 'application/json' };
-  private buyUrl = this.serverBaseUrl + '/user/buy';
-  private sellUrl = this.serverBaseUrl + '/user/sell';
+	// private userCurrencies: Array<UserCurrency>;
+	private headersObj: {} = { 'Content-Type': 'application/json' };
+	private buyUrl = '/user/buy';
+	private sellUrl = '/user/sell';
 
-  constructor(private userService: UserService,
-    private userAuthService: UserAuthService,
-    private httpRequesterService: HttpRequesterService,
-    private httpRequesterOptionsService: HttpRequesterOptionsFactoryService) { }
+	constructor(private userService: UserService,
+		private userAuthService: UserAuthService,
+		private httpRequesterService: HttpRequesterService,
+		private httpRequesterOptionsService: HttpRequesterOptionsFactoryService) { }
 
-  getUserCurrencies() {
-    return this.userService.getUserCurrencies()
-      .map((res) => res.json());
-  }
+	getUserCurrencies() {
+		return this.userService.getUserCurrencies()
+			.map((res) => res.json());
+	}
 
-  buyCurrency(currencyId: Number, currencySymbol: string, currencyBuyPrice: Number, quantity: Number) {
-    const body = {
-      user: this.userAuthService.getLoggedUser(),
-      info: {
-        currencyId: currencyId,
-        currencySymbol: currencySymbol,
-        buyPrice: currencyBuyPrice,
-        quantity: quantity,
-      }
-    };
+	buyCurrency(currencyId: Number, currencySymbol: string, currencyBuyPrice: Number, quantity: Number) {
+		const body = {
+			user: this.userAuthService.getLoggedUser(),
+			info: {
+				currencyId: currencyId,
+				currencySymbol: currencySymbol,
+				buyPrice: currencyBuyPrice,
+				quantity: quantity,
+			}
+		};
 
-    const httpsRequestHeaders = this.httpRequesterOptionsService
-      .createRequestOptions(this.buyUrl, body, this.headersObj);
+		const httpsRequestHeaders = this.httpRequesterOptionsService
+			.createRequestOptions(this.buyUrl, body, this.headersObj);
 
-    return this.httpRequesterService.post(httpsRequestHeaders);
-  }
+		return this.httpRequesterService.post(httpsRequestHeaders);
+	}
 
-  sellCurrency(currencyId: Number, currencySymbol: string, currencySellPrice: Number, quantity: Number) {
-    const body = {
-      user: this.userAuthService.getLoggedUser(),
-      info: {
-        currencyId: currencyId,
-        currencySymbol: currencySymbol,
-        sellPrice: currencySellPrice,
-        quantity: quantity,
-      }
-    };
+	sellCurrency(currencyId: Number, currencySymbol: string, currencySellPrice: Number, quantity: Number) {
+		const body = {
+			user: this.userAuthService.getLoggedUser(),
+			info: {
+				currencyId: currencyId,
+				currencySymbol: currencySymbol,
+				sellPrice: currencySellPrice,
+				quantity: quantity,
+			}
+		};
 
-    const httpsRequestHeaders = this.httpRequesterOptionsService
-      .createRequestOptions(this.sellUrl, body, this.headersObj);
+		const httpsRequestHeaders = this.httpRequesterOptionsService
+			.createRequestOptions(this.sellUrl, body, this.headersObj);
 
-    return this.httpRequesterService.post(httpsRequestHeaders);
-  }
+		return this.httpRequesterService.post(httpsRequestHeaders);
+	}
 
 }

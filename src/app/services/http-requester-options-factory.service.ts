@@ -4,13 +4,13 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class HttpRequesterOptionsFactoryService {
 
-  constructor() { }
+	constructor() { }
 
-  createRequestOptions(url: string, body = {}, headers = {}): HttpRequesterOptions {
-    if (typeof body !== 'object') {
-      body = { body };
-    }
+	createRequestOptions(url: string, body = {}, headers = {}): HttpRequesterOptions {
+		if (typeof body !== 'object') {
+			body = { body };
+		}
 
-    return { url, body, headers };
-  }
+		return { url, body, headers };
+	}
 }
