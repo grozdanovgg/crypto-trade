@@ -10,6 +10,7 @@ import { Response } from '@angular/http';
 
 @Injectable()
 export class UserService {
+
 	private headersObj: {} = { 'Content-Type': 'application/json' };
 	private registerUserUrl = '/api/auth/register';
 	private loginUserUrl = '/api/auth/login';
