@@ -7,19 +7,19 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'logout', component: LogoutComponent },
-  { path: 'profile', component: ProfileComponent}
+	{ path: 'user/register', component: RegisterComponent },
+	{ path: 'user/login', component: LoginComponent },
+	{ path: 'user/logout', component: LogoutComponent },
+	{ path: 'user/profile', component: ProfileComponent }
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  exports: [
-    RouterModule
-  ],
-  declarations: []
+	imports: [
+		RouterModule.forChild(routes)
+	],
+	exports: [
+		RouterModule
+	],
+	declarations: []
 })
 export class UsersRouterModule { }

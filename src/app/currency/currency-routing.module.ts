@@ -6,17 +6,19 @@ import { NgModule, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'currency/all', pathMatch: 'full' },
-  { path: 'currency/all', component: CurrencyListingComponent },
-  { path: 'currency/:id', component: CurrencyDetailsComponent },
+
+	{ path: 'currency', component: CurrencyListingComponent },
+	{ path: 'currency/:id', component: CurrencyDetailsComponent },
+	// { path: '', redirectTo: 'currency/all', pathMatch: 'full' },
+	// { path: 'currency/all', component: CurrencyListingComponent },
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-  ],
-  exports: [RouterModule],
-  declarations: []
+	imports: [
+		CommonModule,
+		RouterModule.forChild(routes),
+	],
+	exports: [RouterModule],
+	declarations: []
 })
 export class CurrencyRouterModule { }

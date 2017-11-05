@@ -22,35 +22,35 @@ import { FormsModule } from '@angular/forms';
 import { CurrencyAnalyticsComponent } from './currency-details/currency-analytics/currency-analytics.component';
 
 export function highchartsFactory() {
-  return highcharts;
+	return highcharts;
 }
 @NgModule({
-  imports: [
-    CurrencyRouterModule,
-    BrowserAnimationsModule,
-    BrowserModule,
-    FormsModule,
-    ChartModule,
-    NgxDatatableModule,
-    DirectivesExportModule
-  ],
-  declarations: [
-    CurrencyComponent,
-    CurrencyListingComponent,
-    CurrencyDetailsComponent,
-    ImageUrlFormatterPipe,
-    CurrencyDataFormatterPipe,
-    PriceCalculatorPipe,
-    CurrencyChartComponent,
-    CurrencyAnalyticsComponent
-  ],
-  providers: [{
-    provide: HighchartsStatic,
-    useFactory: highchartsFactory
-  },
-    CurrencyProcessorService,
-    CurrencyDetailsFactoryService,
-    CurrencyTransactionsService
-  ]
+	imports: [
+		CurrencyRouterModule,
+		BrowserAnimationsModule,
+		BrowserModule,
+		FormsModule,
+		ChartModule,
+		NgxDatatableModule,
+		DirectivesExportModule
+	],
+	declarations: [
+		CurrencyComponent,
+		CurrencyListingComponent,
+		CurrencyDetailsComponent,
+		ImageUrlFormatterPipe,
+		CurrencyDataFormatterPipe,
+		PriceCalculatorPipe,
+		CurrencyChartComponent,
+		CurrencyAnalyticsComponent
+	],
+	providers: [{
+		provide: HighchartsStatic,
+		useFactory: highchartsFactory
+	},
+		CurrencyProcessorService,
+		CurrencyDetailsFactoryService,
+		CurrencyTransactionsService
+	]
 })
 export class CurrencyModule { }

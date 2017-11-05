@@ -7,25 +7,25 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active" appActiveHover>
-        <a class="nav-link" routerLink="/currency/all">Currencies</a>
+        <a class="nav-link" routerLink="/currency">Currencies</a>
       </li>
     </ul>
     <ul class="navbar-nav navbar-right">
       <li class="nav-item dropdown">
-        <a appActiveHover id="userBtn" *ngIf="isUserLogged" class="nav-link dropdown-toggle" routerLink="#" id="navbarDropdown" role="button"
+        <div appActiveHover id="userBtn" *ngIf="isUserLogged" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Hello, {{ loggedUserUsername | uppercase }}
-        </a>
+        </div>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a appActiveHover id="profileBtn" class="dropdown-item" routerLink="/profile">Profile</a>
-          <a appActiveHover id="logoutBtn" class="dropdown-item" routerLink="/logout">Logout</a>
+          <a appActiveHover id="profileBtn" class="dropdown-item" routerLink="/user/profile">Profile</a>
+          <a appActiveHover id="logoutBtn" class="dropdown-item" routerLink="/user/logout">Logout</a>
         </div>
       </li>
       <li appActiveHover d="registerBtn" *ngIf="!isUserLogged" class="nav-item">
-        <a id="registerBtn" class="nav-link disabled" routerLink="/register">Register</a>
+        <a id="registerBtn" class="nav-link disabled" routerLink="/user/register">Register</a>
       </li>
       <li appActiveHover id="loginBtn" *ngIf="!isUserLogged" class="nav-item">
-        <a id="registerBtn" class="nav-link disabled" routerLink="/login">Login</a>
+        <a id="registerBtn" class="nav-link disabled" routerLink="/user/login">Login</a>
       </li>
     </ul>
   </div>

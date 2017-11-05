@@ -7,7 +7,6 @@ import { ActiveHoverDirective } from './directives/active-hover.directive';
 import { CurrencyModule } from './currency/currency.module';
 import { CookieService } from 'ngx-cookie-service';
 import { UserAuthService } from './services/user-auth.service';
-import { HomeModule } from './home/home.module';
 import { AboutModule } from './about/about.module';
 import { UsersModule } from './users/users.module';
 import { RouterModule } from '@angular/router';
@@ -31,44 +30,48 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CurrencyListingComponent } from './currency/currency-listing/currency-listing.component';
 import { CurrencyDetailsComponent } from './currency/currency-details/currency-details.component';
 import { CurrencyComponent } from './currency/currency.component';
+import { TrimStringPipe } from './pipes/trim-string.pipe';
+import { AppRouterModule } from './app-router.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavigationComponent,
-    FooterComponent,
-    ActiveHoverDirective,
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    HomeModule,
-    AboutModule,
-    UsersModule,
-    CurrencyModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    RouterModule.forRoot([
-      { path: '**', redirectTo: '/' },
-      { path: '', redirectTo: '/', pathMatch: 'full' },
-    ]),
-    ToastModule.forRoot(),
-  ],
-  providers: [
-    CookieService,
-    HttpRequesterService,
-    HttpRequesterOptionsFactoryService,
-    UserAuthService,
-    CurrencyProviderService,
-    UserService,
-    FormControlDirective,
-    FormGroupDirective,
-    FormValidationService,
-    ToastrService,
-    { provide: ToastOptions, useClass: ToastrCustomOptions },
-  ],
-  bootstrap: [AppComponent],
-  exports: []
+	declarations: [
+		AppComponent,
+		HomeComponent,
+		NavigationComponent,
+		FooterComponent,
+		ActiveHoverDirective,
+		TrimStringPipe
+	],
+	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
+		FormsModule,
+		HttpModule,
+		AboutModule,
+		UsersModule,
+		CurrencyModule,
+		// RouterModule.forRoot([
+		// 	// { path: '**', redirectTo: '/' },
+		// 	// { path: '', redirectTo: '/', pathMatch: 'full' },
+		// 	{ path: '', component: HomeComponent },
+		// ]),
+		ToastModule.forRoot(),
+		AppRouterModule,
+	],
+	providers: [
+		CookieService,
+		HttpRequesterService,
+		HttpRequesterOptionsFactoryService,
+		UserAuthService,
+		CurrencyProviderService,
+		UserService,
+		FormControlDirective,
+		FormGroupDirective,
+		FormValidationService,
+		ToastrService,
+		{ provide: ToastOptions, useClass: ToastrCustomOptions },
+	],
+	bootstrap: [AppComponent],
+	exports: []
 })
 export class AppModule { }

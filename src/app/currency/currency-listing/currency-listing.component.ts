@@ -57,6 +57,7 @@ export class CurrencyListingComponent implements OnInit {
 
   onSelect(selected) {
     const currencyUrl = selected.selected[0].Id;
+    console.log(currencyUrl);
     this.router.navigate(['/currency/' + currencyUrl]);
   }
 

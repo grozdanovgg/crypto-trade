@@ -44,7 +44,6 @@ export class CurrencyDetailsComponent implements OnInit {
 	ngOnInit() {
 		this.detailsRoute.params.subscribe((params) => {
 			this.currencyId = params.id;
-
 			this.userService.getUserDetails()
 				.map((res) => res.json())
 				.subscribe((response) => {
