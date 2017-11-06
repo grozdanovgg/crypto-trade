@@ -42,7 +42,7 @@ export class CurrencyAnalyticsComponent implements OnInit {
 
 		this.combinedAllData = this.combineAllData(this.currancyOHLCData, this.combinedIndicatorsData);
 
-		this.crossEvents = this.crossingIndicatorsService.CombinedCross(this.combinedAllData);
+		this.crossEvents = this.crossingIndicatorsService.CombinedCross(this.combinedAllData, analytiConfig.offset);
 
 		// console.log(this.currancyOHLCData);
 		// console.log(this.combinedIndicatorsData);
@@ -95,7 +95,7 @@ export class CurrencyAnalyticsComponent implements OnInit {
 						capitalSecondary -= (capitalSecondary * analytiConfig.usedAmmountPerAction);
 					} else { // If the predictionis unsuccesfull, I suppose that may stop the losss in 3x the limit of the "profitPercent"
 						console.log('PREDICTION UNSUCCESSFUL');
-						capitalMain += ((capitalSecondary * analytiConfig.usedAmmountPerAction) * ((moment.high + moment.low) / 2));
+						capitalMain += ((capitalSecondary * analytiConfig.usedAmmountPerAction) * moment.close);
 						capitalSecondary -= (capitalSecondary * analytiConfig.usedAmmountPerAction);
 					}
 
@@ -108,7 +108,7 @@ export class CurrencyAnalyticsComponent implements OnInit {
 						capitalMain -= (capitalMain * analytiConfig.usedAmmountPerAction);
 					} else { // If the predictionis unsuccesfull, I suppose that may stop the losss in 3x the limit of the "profitPercent"
 						console.log('PREDICTION UNSUCCESSFUL');
-						capitalSecondary += ((capitalMain * analytiConfig.usedAmmountPerAction) / ((moment.high + moment.low) / 2));
+						capitalSecondary += ((capitalMain * analytiConfig.usedAmmountPerAction) / moment.close);
 						capitalMain -= (capitalMain * analytiConfig.usedAmmountPerAction);
 					}
 				} else {
@@ -124,19 +124,31 @@ export class CurrencyAnalyticsComponent implements OnInit {
 
 				// Simulate trading
 				if (moment.overbought && capitalSecondary > 0) {
-					// Sell secondary currency
-					console.log(capitalSecondary);
-					console.log(moment.crossPoint);
-					capitalMain += (capitalSecondary * analytiConfig.usedAmmountPerAction * moment.crossPoint);
-					capitalSecondary -= capitalSecondary * analytiConfig.usedAmmountPerAction;
-					momentStatus.prevAction = 'sell';
-					momentStatus.prevActionPrice = moment.crossPoint;
-					momentStatus.is = 'afterAction';
-				} else if (moment.oversold && capitalMain > 0) {
-					// Buy secondary currency
+					// // Sell secondary currency
+					// capitalMain += (capitalSecondary * analytiConfig.usedAmmountPerAction * moment.crossPoint);
+					// capitalSecondary -= capitalSecondary * analytiConfig.usedAmmountPerAction;
+					// momentStatus.prevAction = 'sell';
+					// momentStatus.prevActionPrice = moment.crossPoint;
+					// momentStatus.is = 'afterAction';
+
+					// CHANGED SPT
 					capitalSecondary += (capitalMain * analytiConfig.usedAmmountPerAction / moment.crossPoint);
 					capitalMain -= (capitalMain * analytiConfig.usedAmmountPerAction);
 					momentStatus.prevAction = 'buy';
+					momentStatus.prevActionPrice = moment.crossPoint;
+					momentStatus.is = 'afterAction';
+				} else if (moment.oversold && capitalMain > 0) {
+					// // Buy secondary currency
+					// capitalSecondary += (capitalMain * analytiConfig.usedAmmountPerAction / moment.crossPoint);
+					// capitalMain -= (capitalMain * analytiConfig.usedAmmountPerAction);
+					// momentStatus.prevAction = 'buy';
+					// momentStatus.prevActionPrice = moment.crossPoint;
+					// momentStatus.is = 'afterAction';
+
+					// CHANGED SPOT
+					capitalMain += (capitalSecondary * analytiConfig.usedAmmountPerAction * moment.crossPoint);
+					capitalSecondary -= capitalSecondary * analytiConfig.usedAmmountPerAction;
+					momentStatus.prevAction = 'sell';
 					momentStatus.prevActionPrice = moment.crossPoint;
 					momentStatus.is = 'afterAction';
 				}
