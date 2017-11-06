@@ -48,8 +48,12 @@ module.exports = () => {
                 })
         },
         getHistoryPrice(req, res) {
-            fetch(currencyConf.currencyPricesHistoday + req.body.symbol +
-                currencyConf.priceConversionForHistory + currencyConf.currencyOHLCLimit)
+            const timeLimit = req.params.timeLimit;
+            const timeFrame = req.params.timeFrame;
+            const url = currencyConf.currencyPrices + timeFrame + currencyConf.fromCurrency + req.body.symbol +
+                currencyConf.priceConversionForHistory + currencyConf.currencyOHLCLimit + timeLimit;
+            console.log(url);
+            fetch(url)
                 .then((response) => {
                     return response.json();
                 })

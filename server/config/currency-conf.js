@@ -13,8 +13,10 @@ const config = {
     coinPrice: minCurrencyProviderBaseUrl + '/data/price?fsym=',
     priceConversionValues: '&tsyms=USD,BTC',
     priceConversionForHistory: '&tsym=USD',
-    currencyPricesHistoday: minCurrencyProviderBaseUrl + '/data/histoday?fsym=',
-    currencyOHLCLimit: '&limit=400'
+    // currencyPrices: minCurrencyProviderBaseUrl + '/data/histoday?fsym=',
+    currencyPrices: minCurrencyProviderBaseUrl + '/data/',
+    fromCurrency: '?fsym=',
+    currencyOHLCLimit: '&limit='
 };
 
 module.exports = config;

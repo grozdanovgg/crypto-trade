@@ -6,6 +6,8 @@ module.exports = ({ app, express, controllers }) => {
     router.post('/getDetailsById', currencyController.getCoinDetailsById);
     router.post('/priceConversions', currencyController.getPriceConversions);
     router.post('/historyPrice', currencyController.getHistoryPrice);
+    router.post('/historyPrice/:timeFrame', currencyController.getHistoryPrice);
+    router.post('/historyPrice/:timeFrame/:timeLimit', currencyController.getHistoryPrice);
 
     app.use('/currency', router);
 };

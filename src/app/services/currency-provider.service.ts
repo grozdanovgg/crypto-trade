@@ -4,16 +4,16 @@ import { HttpRequesterService } from './http-requester.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Response, Http } from '@angular/http';
+import { analytiConfig } from '../config/analytic-config';
 
 @Injectable()
 export class CurrencyProviderService {
-
-
-
 	private currencyListUrl = '/currency/listAll';
 	private currencyDetailsUrl = '/currency/getDetailsById';
 	private currencyPrices = '/currency/priceConversions';
 	private currencyPricesHistoday = '/currency/historyPrice';
+	private timeFrame = `/${analytiConfig.timeFrame}`;
+	private timeLimit = `/${analytiConfig.timeLimit}`;
 
 	private headersObj: {} = {
 		'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ export class CurrencyProviderService {
 	getCoinIOHLCInformation(baseCurrency): Observable<Response> {
 		const httpRequestOptions: HttpRequesterOptions =
 			this.httpRequestOptionsFactory
-				.createRequestOptions(this.currencyPricesHistoday, { symbol: baseCurrency }, this.headersObj);
+				.createRequestOptions(this.currencyPricesHistoday + this.timeFrame + this.timeLimit, { symbol: baseCurrency }, this.headersObj);
 
 		return this.httpRequesterService.post(httpRequestOptions);
 	}

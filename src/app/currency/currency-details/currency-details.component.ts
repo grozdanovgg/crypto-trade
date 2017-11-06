@@ -48,12 +48,12 @@ export class CurrencyDetailsComponent implements OnInit {
 				.map((res) => res.json())
 				.subscribe((response) => {
 					this.loggedUser = response.user;
-					this.loadCurrencyDetails();
+					this.loadCurrencyDetails(this.currencyId);
 				});
 		});
 	}
-	private loadCurrencyDetails() {
-		this.currencyDetailsProcessor.getFullCurrencyDetails(this.currencyId)
+	private loadCurrencyDetails(currencyId) {
+		this.currencyDetailsProcessor.getFullCurrencyDetails(currencyId)
 			.subscribe((result) => {
 				this.currencyDetails = result;
 				this.currencyProviderService.getCoinIOHLCInformation(this.currencyDetails.symbol)

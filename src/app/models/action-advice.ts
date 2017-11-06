@@ -7,4 +7,5 @@ export class ActionAdvice {
 	overbought: boolean;
 	oversold: boolean;
 	crossPoint: number;
+	spread: number;
 }

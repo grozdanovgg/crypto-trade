@@ -42,7 +42,7 @@ export class CurrencyAnalyticsComponent implements OnInit {
 
 		this.combinedAllData = this.combineAllData(this.currancyOHLCData, this.combinedIndicatorsData);
 
-		this.crossEvents = this.crossingIndicatorsService.BBcross(this.combinedAllData);
+		this.crossEvents = this.crossingIndicatorsService.CombinedCross(this.combinedAllData);
 
 		// console.log(this.currancyOHLCData);
 		// console.log(this.combinedIndicatorsData);
@@ -52,83 +52,106 @@ export class CurrencyAnalyticsComponent implements OnInit {
 
 
 		const testTradeResults = this.
-			simulateTrade(analytiConfig.testCapital, this.crossEvents, analytiConfig.nPeriod, analytiConfig.momentProfitPercent);
+			simulateTrade(
+			analytiConfig.testCapital,
+			this.crossEvents,
+			analytiConfig.nPeriod,
+			analytiConfig.momentProfitPercent,
+			analytiConfig.minSpread
+			);
 		console.log(analytiConfig.testCapital);
 		console.log(testTradeResults);
 
 		// console.log(this.techIndicators);
 	}
 
-	private simulateTrade(initialCapital, data, nPeriod, profitPercent) {
+	private simulateTrade(initialCapital, data, nPeriod, wantedProfitPercent, minSpread) {
+
 		// const capitalArr = Object.keys(initialCapital);
 		let capitalMain = initialCapital.main;
 		let capitalSecondary = initialCapital.secondary;
 		const currentData = data.slice(0, nPeriod).reverse();
 
 		// Status of the moment: action, afterAction, idle; Prev action buy/sell
-		const momentStatus = { is: 'idle', prevAction: null };
-
-		let startCapitalMain = null;
+		const startCapitalMain = (currentData[0].close * initialCapital.secondary) + initialCapital.main;
 		let endCapitalMain = null;
 
-		for (let i = 1; i < currentData.length - 1; i += 1) {
+		const momentStatus = { is: 'idle', prevAction: null, prevActionPrice: null, currentCapital: startCapitalMain };
+
+		for (let i = 1; i < currentData.length; i += 1) {
 			const moment = currentData[i];
 			const prevMoment = currentData[i - 1];
 			const nextMoment = currentData[i + 1];
+			const minRealSpread = moment.close * (minSpread / 100);
+			const currentSpread = moment.spread;
 
 			// Main logic based on previus moment
 			if (momentStatus.is === 'afterAction') {
 				if (momentStatus.prevAction === 'buy') { // Try to sell
-					const wantedSellPrice = moment.crossPoint * ((100 + (profitPercent / 2)) / 100);
-
+					const wantedSellPrice = momentStatus.prevActionPrice * ((100 + (wantedProfitPercent)) / 100);
+					console.log('Wanted sell price ' + wantedSellPrice);
 					if (wantedSellPrice < moment.high) {
-						capitalMain += capitalSecondary * wantedSellPrice;
-						capitalSecondary -= capitalSecondary;
+						capitalMain += (capitalSecondary * analytiConfig.usedAmmountPerAction * wantedSellPrice);
+						capitalSecondary -= (capitalSecondary * analytiConfig.usedAmmountPerAction);
 					} else { // If the predictionis unsuccesfull, I suppose that may stop the losss in 3x the limit of the "profitPercent"
-						capitalMain += capitalSecondary * moment.high * ((100 + (3 * profitPercent)) / 100);
-						capitalSecondary -= capitalSecondary;
+						console.log('PREDICTION UNSUCCESSFUL');
+						capitalMain += ((capitalSecondary * analytiConfig.usedAmmountPerAction) * ((moment.high + moment.low) / 2));
+						capitalSecondary -= (capitalSecondary * analytiConfig.usedAmmountPerAction);
 					}
 
 				} else if (momentStatus.prevAction === 'sell') { // Try to buy
-					const wantedBuyPrice = moment.crossPoint * ((100 - (profitPercent / 2)) / 100);
-
+					const wantedBuyPrice = momentStatus.prevActionPrice * ((100 - (wantedProfitPercent)) / 100);
+					console.log('Wanted buy price ' + wantedBuyPrice);
 					// Check may I buy
 					if (wantedBuyPrice > moment.low) {
-						capitalSecondary += capitalMain / wantedBuyPrice;
-						capitalMain -= capitalMain;
+						capitalSecondary += (capitalMain * analytiConfig.usedAmmountPerAction / wantedBuyPrice);
+						capitalMain -= (capitalMain * analytiConfig.usedAmmountPerAction);
 					} else { // If the predictionis unsuccesfull, I suppose that may stop the losss in 3x the limit of the "profitPercent"
-						capitalSecondary += capitalMain / moment.low * ((100 + (3 * profitPercent)) / 100);
-						capitalMain -= capitalMain;
+						console.log('PREDICTION UNSUCCESSFUL');
+						capitalSecondary += ((capitalMain * analytiConfig.usedAmmountPerAction) / ((moment.high + moment.low) / 2));
+						capitalMain -= (capitalMain * analytiConfig.usedAmmountPerAction);
 					}
 				} else {
 					console.log('CHECK ERROR IN CALCULATIONS');
 				}
 				momentStatus.is = 'idle';
-			} else if (moment.crossPoint && momentStatus.is === 'idle') {
+			} else if (moment.crossPoint && momentStatus.is === 'idle' && currentSpread > minRealSpread) {
 				momentStatus.is = 'action';
 				// just record the strart trading capital to compare it later
-				if (!startCapitalMain) {
-					startCapitalMain = (moment.crossPoint * capitalSecondary) + capitalMain;
-				}
+				// if (!startCapitalMain) {
+				// 	startCapitalMain = (moment.crossPoint * capitalSecondary) + capitalMain;
+				// }
 
 				// Simulate trading
-				if (moment.overbought) {
+				if (moment.overbought && capitalSecondary > 0) {
 					// Sell secondary currency
-					capitalMain += capitalSecondary * moment.crossPoint;
-					capitalSecondary -= capitalSecondary;
+					console.log(capitalSecondary);
+					console.log(moment.crossPoint);
+					capitalMain += (capitalSecondary * analytiConfig.usedAmmountPerAction * moment.crossPoint);
+					capitalSecondary -= capitalSecondary * analytiConfig.usedAmmountPerAction;
 					momentStatus.prevAction = 'sell';
-				} else if (moment.oversold) {
+					momentStatus.prevActionPrice = moment.crossPoint;
+					momentStatus.is = 'afterAction';
+				} else if (moment.oversold && capitalMain > 0) {
 					// Buy secondary currency
-					capitalSecondary += capitalMain / moment.crossPoint;
-					capitalMain -= capitalMain;
+					capitalSecondary += (capitalMain * analytiConfig.usedAmmountPerAction / moment.crossPoint);
+					capitalMain -= (capitalMain * analytiConfig.usedAmmountPerAction);
 					momentStatus.prevAction = 'buy';
+					momentStatus.prevActionPrice = moment.crossPoint;
+					momentStatus.is = 'afterAction';
 				}
-				console.log('=======');
-				endCapitalMain = (moment.crossPoint * capitalSecondary) + capitalMain;
-
-				momentStatus.is = 'afterAction';
+				// endCapitalMain = (moment.crossPoint * capitalSecondary) + capitalMain;
 			}
+			momentStatus.currentCapital = capitalMain + (capitalSecondary * moment.close);
+			console.log({ capitalMain, capitalSecondary });
+			console.log(momentStatus);
+			console.log(moment);
+			console.log('=======');
 		}
+
+
+		endCapitalMain = (currentData[currentData.length - 1].close * capitalSecondary) + capitalMain;
+		console.log({ startCapitalMain, endCapitalMain });
 		return { capitalMain, capitalSecondary, startCapitalMain, endCapitalMain };
 	}
 

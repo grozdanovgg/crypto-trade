@@ -7,30 +7,30 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class CurrencyProcessorService {
 
-  private currency: CurrencyDetails;
-  private mainDetails: any;
+	private currency: CurrencyDetails;
+	private mainDetails: any;
 
-  constructor(private currencyProviderService: CurrencyProviderService,
-    private currencyDetailsFactory: CurrencyDetailsFactoryService
-  ) {
-    this.currency = new CurrencyDetails();
-  }
+	constructor(private currencyProviderService: CurrencyProviderService,
+		private currencyDetailsFactory: CurrencyDetailsFactoryService
+	) {
+		this.currency = new CurrencyDetails();
+	}
 
-  getFullCurrencyDetails(currencyId: number): Observable<CurrencyDetails> {
-    return this.currencyProviderService.getCoinDetailsById(currencyId)
-      .map((res) => res.json())
-      .map((res) => res.result.Data.General)
-      .switchMap((details) => {
-        this.mainDetails = details;
-        return this.currencyProviderService.getCoinPriceConversions(this.mainDetails.Symbol);
-      })
-      .map((res) => res.json())
-      .map((res) => res.result)
-      .map((prices) => {
-        this.currency = this.currencyDetailsFactory
-          .createCurrencyDetails(currencyId, this.mainDetails, prices);
+	getFullCurrencyDetails(currencyId: number): Observable<CurrencyDetails> {
+		return this.currencyProviderService.getCoinDetailsById(currencyId)
+			.map((res) => res.json())
+			.map((res) => res.result.Data.General)
+			.switchMap((details) => {
+				this.mainDetails = details;
+				return this.currencyProviderService.getCoinPriceConversions(this.mainDetails.Symbol);
+			})
+			.map((res) => res.json())
+			.map((res) => res.result)
+			.map((prices) => {
+				this.currency = this.currencyDetailsFactory
+					.createCurrencyDetails(currencyId, this.mainDetails, prices);
 
-        return this.currency;
-      });
-  }
+				return this.currency;
+			});
+	}
 }
