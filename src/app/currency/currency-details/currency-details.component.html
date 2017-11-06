@@ -67,7 +67,7 @@
                 <app-currency-chart class="col-md-12" *ngIf="!loading" [currancyOHLCData]="currencyData" [currencyName]="currencyDetails?.symbol"></app-currency-chart>
             </div>
             <div class="row shadow currency-analytics">
-                <app-currency-analytics class="col-md-12" *ngIf="!loading" [currancyOHLCData]="currancyOHLCData"></app-currency-analytics>
+                <app-currency-analytics class="col-md-12" *ngIf="!loading" [userBalance]="currencyQuantityPurchased" [currancyOHLCData]="currancyOHLCData"></app-currency-analytics>
             </div>
         </div>
     </div>

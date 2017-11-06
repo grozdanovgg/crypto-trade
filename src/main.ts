@@ -11,7 +11,7 @@ import { environment } from './environments/environment';
 
 // Enable production mode unless running locally
 if (!/localhost/.test(document.location.host)) {
-	console.log('Enabling production mode with enableProMode() function');
+	console.log('PRODUCTION MODE ENABLED');
 	enableProdMode();
 }
 

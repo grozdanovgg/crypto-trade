@@ -19,10 +19,14 @@ export class CrossingIndicatorsService {
 
 	private crossElement(el) {
 		this.result = {
+			open: el.open,
+			close: el.close,
+			low: el.low,
+			high: el.high,
 			time: el.time,
 			overbought: false,
 			oversold: false,
-			crossPoint: 0
+			crossPoint: null
 		};
 		if (el.low < el.BBlowerBand) {
 			this.result.oversold = true;
@@ -34,6 +38,6 @@ export class CrossingIndicatorsService {
 			this.result.crossPoint = el.BBupperBand;
 			return this.result;
 		}
-		return;
+		return this.result;
 	}
 }
