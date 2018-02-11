@@ -1,18 +1,18 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'keyValue'
+    name: 'keyValue'
 })
 export class KeyValuePipe implements PipeTransform {
 
-  transform(value: {}, args: string[]): any {
-    const keys = [];
+    transform(value: {}, args: string[]): any {
+        const keys = [];
 
-    /* tslint:disable-next-line */
-    for (let key in value) {
-      keys.push({ key: key, value: value[key] });
+        /* tslint:disable-next-line */
+        for (let key in value) {
+            keys.push({ key: key, value: value[key] });
+        }
+        return keys;
     }
-    return keys;
-  }
 
 }

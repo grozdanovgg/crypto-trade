@@ -5,40 +5,40 @@ import { CookieService } from 'ngx-cookie-service';
 @Injectable()
 export class UserAuthService {
 
-  private cookieName: string;
-  private loggedUser: User;
+    private cookieName: string;
+    private loggedUser: User;
 
-  constructor(private cookieService: CookieService) {
-    this.cookieName = 'crypto-trade-project';
-  }
-
-  getLoggedUser(): string {
-    const username: string = this.cookieService.get(this.cookieName);
-    if (!username) {
-      return undefined;
+    constructor(private cookieService: CookieService) {
+        this.cookieName = 'crypto-trade-project';
     }
 
-    return username;
-  }
+    getLoggedUser(): string {
+        const username: string = this.cookieService.get(this.cookieName);
+        if (!username) {
+            return undefined;
+        }
 
-  getLoggedUserDetails(): User {
-    const user = this.loggedUser;
-    return user;
-  }
+        return username;
+    }
 
-  isLogged() {
-    const loggedUser = this.cookieService.check(this.cookieName);
-    return loggedUser ? true : false;
-  }
+    getLoggedUserDetails(): User {
+        const user = this.loggedUser;
+        return user;
+    }
 
-  setLoggedUser(user: User) {
-    const cookieDate: Date = new Date(2020, 1, 1);
-    this.cookieService.set(this.cookieName, user.username, cookieDate);
-    this.loggedUser = user;
-  }
+    isLogged() {
+        const loggedUser = this.cookieService.check(this.cookieName);
+        return loggedUser ? true : false;
+    }
 
-  clearUserCookie(): void {
-    this.cookieService.delete(this.cookieName);
-    this.loggedUser = null;
-  }
+    setLoggedUser(user: User) {
+        const cookieDate: Date = new Date(2020, 1, 1);
+        this.cookieService.set(this.cookieName, user.username, cookieDate);
+        this.loggedUser = user;
+    }
+
+    clearUserCookie(): void {
+        this.cookieService.delete(this.cookieName);
+        this.loggedUser = null;
+    }
 }
